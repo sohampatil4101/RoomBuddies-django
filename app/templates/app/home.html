@@ -1,0 +1,364 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title %} HouseBuddies {% endblock title %}
+{% block style %}
+<style>
+    .reveal {
+        position: relative;
+        transform: translateY(150px);
+        opacity: 0;
+        transition: 5s all ease;
+    }
+
+    .reveal.active {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .active.fade-bottom {
+        animation: fade-bottom 1s ease-in;
+    }
+
+    .active.fade-left {
+        animation: fade-left 1s ease-in;
+    }
+
+    .active.fade-right {
+        animation: fade-right 1s ease-in;
+    }
+
+    @keyframes fade-bottom {
+        0% {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fade-left {
+        0% {
+            transform: translateX(-100px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fade-right {
+        0% {
+            transform: translateX(100px);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+</style>
+{% endblock style %}
+
+{% block log %}
+{% if username %}
+    <li><a href="/final">Put house on Rent for bachleors </a></li>
+    <li><a href="/vacanthouse">Put house on rent for families</a></li>
+    <li><a href="/sellroom">Sell house</a></li>
+    <li><a href="/profile">Profile</a></li>
+    <li><a href="/logout">logout</a></li>
+    {% else %}
+    
+    <li><a href="/login">Login</a></li>
+    {% endif %}
+    {% endblock log %}
+
+{% block body %}
+
+<section id="search">
+    <div class="search-panel">
+        <form class="form-inline" role="form" method="get" action="/search">
+            <div class="form-group" >
+                <input type="text" class="form-control" id="city" placeholder="Search by Area" name="search" autocomplete="off" style="padding-right: 1000px;"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btnsearch">Search</button>
+            </div>
+        </form>
+    </div>
+</section>
+<header id="head">
+    <div class="container">
+        <div class="fluid_container">
+            <div class="camera_wrap camera_emboss pattern_1" id="camera_wrap_4">
+                <div data-thumb="{% static 'assets/images/slides/thumbs/slide1.jpg' %}"
+                    data-src="{% static 'assets/images/slides/slide1.jpg' %}"></div>
+                <div data-thumb="{% static 'assets/images/slides/thumbs/slide2.jpg' %}"
+                    data-src="{% static 'assets/images/slides/slide2.jpg' %}"></div>
+                <div data-thumb="{% static 'assets/images/slides/thumbs/slide3.jpg' %}"
+                    data-src="{% static 'assets/images/slides/slide3.jpg' %}"></div>
+            </div>
+            <!-- #camera_wrap_3 -->
+        </div>
+        <!-- .fluid_container -->
+    </div>
+</header>
+
+<div class="reveal fade-left">
+    <section class="secpadding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-box clearfix">
+                        <h2 class="title-box_primary">Welcome</h2>
+                    </div>
+                    <p>
+                        The tiger (Panthera tigris) is the largest living cat species and a member of the genus Panthera. It is most recognisable for its dark vertical stripes on orange fur with a white underside. An apex predator, it primarily preys on ungulates, such as deer and wild boar. It is territorial and generally a solitary but social predator, requiring large contiguous areas of habitat to support its requirements for prey and rearing of its offspring. Tiger cubs stay with their mother for about two years and then become independent, leaving their mother's home range to establish their own.
+
+The tiger was first scientifically described in 1758. It once ranged widely from the Eastern Anatolia Region in the west to the Amur River basin in the east, and in the south from the foothills of the Himalayas to Bali in the Sunda Islands. Since the early 20th century, tiger populations have lost at least 93% of their historic range and have been extirpated from Western and Central Asia, the islands of Java and Bali, and in large areas of Southeast and South Asia and China. What remains of the range where tigers still roam free is fragmented, stretching in spots from Siberian temperate forests to subtropical and tropical forests on the Indian subcontinent, Indochina and a single Indonesian island, Sumatra.
+                    </p>
+                    <p>
+                        The tiger (Panthera tigris) is the largest living cat species and a member of the genus Panthera. It is most recognisable for its dark vertical stripes on orange fur with a white underside. An apex predator, it primarily preys on ungulates, such as deer and wild boar. It is territorial and generally a solitary but social predator, requiring large contiguous areas of habitat to support its requirements for prey and rearing of its offspring. Tiger cubs stay with their mother for about two years and then become independent, leaving their mother's home range to establish their own.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="news-box secpadding">
+        <div class="container">
+            <h2><span>Want Roommates?</span></h2>
+            <div class="row">
+                {% for so in so %}
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="newsBox">
+                        <div class="thumbnail">
+                            <figure>
+                                <!-- <img src="{% static 'assets/images/news1.jpg' %}" alt="" /> -->
+                                {% if so.file %}
+                                <img src="{{so.file.url}}" width="99" height="150" class="card-img-top" alt="...">
+                                {% else %}
+                                {% endif %}
+                            </figure>
+                            <div class="caption maxheight2">
+                                <div class="box_inner">
+                                    <div class="box">
+                                        <p class="title"><strong>{{so.username}} </strong></p>
+                                        <p>Address: {{so.address}}</p>
+                                        <p>Rent: RS.{{so.rent}}-/ per month</p>
+                                        <p>Roommates present: {{so.room_mate_present}}</p>
+                                        <p>Roommates require: {{so.room_mate_require}}</p>
+                                        <p>Last date for room availibility: {{so.lastdate}}</p>
+                                    </div>
+                                    <div>
+                                        <a href="/more/{{so.username}}/{{so.address}}/{{so.rent}}" class="btn-inline">more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+    </section>
+
+    
+</div>
+
+
+<section id="packages" class="secpadding reveal fade-bottom">
+    <div class="container">
+        <h2><span>Want Room for Family?</span></h2>
+            {% for ab in ab  %}
+        <div class="row">
+            
+            <div class="col-md-3 col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        {% if ab.file %}
+                        <img src="{{ab.file.url}}"  class="card-img-top" alt="...">
+                        {% else %}
+                        {% endif %}
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>{{ab.username}}</h3>
+                            <a class=" btn btn-default" href="/more/{{ab.username}}/{{ab.address}}/{{ab.rent}}">RS.{{ab.rent}}</i></a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            {% endfor %}
+                </div>
+            </section>
+
+
+
+
+<section id="packages" class="secpadding reveal fade-bottom">
+    <div class="container">
+        <h2><span>House on Sale!!!</span></h2>
+            {% for cd in cd %}
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">  
+                        {% if cd.file %}
+                        <img src="{{cd.file.url}}" class="card-img-top" alt="...">
+                        {% else %}
+                        {% endif %}
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>{{cd.username}}</h3>
+                            <a class=" btn btn-default" href="/more/{{cd.username}}/{{cd.address}}/{{cd.sellprice}}">RS.{{cd.sellprice}}</i></a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            {% endfor %}
+                </div>
+            </section>
+
+
+{% comment %} 
+
+
+<section id="packages" class="secpadding reveal fade-bottom">
+    <div class="container">
+        <h2><span>Completed Projects</span></h2>
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static  'assets/images/pic/pic-1.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>Project Name</h3>
+                            <a class=" btn btn-default" href="#">$4600</i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static  'assets/images/pic/pic-2.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>Project Name</h3>
+                            <a class=" btn btn-default" href="#"> $4600</i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static  'assets/images/pic/pic-3.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>Project Name</h3>
+                            <a class=" btn btn-default" href="#">$4600</i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static  'assets/images/pic/pic-4.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>Project Name</h3>
+                            <a class=" btn btn-default" href="#">$4600</i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static  'assets/images/pic/pic-5.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>Project Name</h3>
+                            <a class=" btn btn-default" href="#">$4600</i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3  col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static  'assets/images/pic/pic-6.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>Project Name</h3>
+                            <a class=" btn btn-default" href="#">$4600</i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3  col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static  'assets/images/pic/pic-7.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>Project Name</h3>
+                            <a class=" btn btn-default" href="#">$4600</i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3  col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static  'assets/images/pic/pic-8.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>Project Name</h3>
+                            <a class=" btn btn-default" href="#">$4600</i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section> {% endcomment %}
+
+{% endblock body %}

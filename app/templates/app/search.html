@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+{%load static %} 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
+    <title>Document</title>
+</head>
+<body>
+<div class="container my-3 sticky-top">
+  <form class="form-inline my-2 my-lg-0" method="get" style="width: 1100px; height: 40px;" action="/search">
+    <!-- {% csrf_token %} -->
+    <input class="form-control mr-sm-2 ml-5" type="search" id="search" name="search" style="width: 942px; height: 40px;" placeholder="Search by product 'name' or 'category' or 'seller name'" aria-label="Search">
+    <button type="submit" class="btn btn-outline-success ml-2" >
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+      </svg> Search
+    </button>
+  </form>
+</div>
+    <table class="table table-striped table-hover ">
+        <thead >
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">House</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if so %}
+          
+          {% for obj in so %}
+          <tr>
+            <th scope="row"> {{ forloop.counter }} </th> 
+            <td>{% if obj.file %}
+              <img src="{{obj.file.url}}" class="rounded border border-dark" alt="..." width="150" height="75" >
+              {% else %}    
+              <img src="{% static 'D:\VoLo\VoLo\media\images\Screenshot_20.png' %}" class="card-img-top" alt="..." height="800" width="1000">
+            {% endif %}
+          </td>
+          <td>
+          Room for Bachlores
+          <br>
+          <i class="bi bi-person"></i>{{obj.username}}
+          <br>
+          <i class="bi bi-geo-alt"></i>{{obj.address}}
+          <br>
+          Rent: <i class="bi bi-currency-rupee"></i>{{obj.rent}} -/per month
+          <br>
+          <i class="bi bi-calendar"></i>{{obj.lastdate}}
+          
+          
+          
+          </td>
+          <td>
+            <a class="btn btn-primary" href="/more/{{obj.username}}/{{obj.address}}/{{obj.rent}}" >Check</a>
+            
+          </td>
+        </tr>    
+        {% endfor %}
+        
+        
+     
+          {% else %}
+
+        
+          {% for obj in ab %}
+          <tr>
+            <th scope="row"> {{ forloop.counter }} </th> 
+            <td>{% if obj.file %}
+              <img src="{{obj.file.url}}" class="rounded border border-dark" alt="..." width="150" height="75" >
+              {% else %}    
+              <img src="{% static 'D:\VoLo\VoLo\media\images\Screenshot_20.png' %}" class="card-img-top" alt="..." height="800" width="1000">
+            {% endif %}
+          </td>
+          <td>
+          Room for Families
+          <br>
+          <i class="bi bi-person"></i>{{obj.username}}
+          <br>
+          <i class="bi bi-geo-alt"></i>{{obj.address}}
+          <br>
+          Rent: <i class="bi bi-currency-rupee"></i>{{obj.rent}} -/per month
+          <br>
+          <i class="bi bi-calendar"></i>{{obj.lastdate}}
+          
+          
+          
+          </td>
+          <td>
+            <a class="btn btn-primary" href="/more/{{obj.username}}/{{obj.address}}/{{obj.rent}}" >Check</a>
+            
+          </td>
+        </tr>    
+        {% endfor %}
+
+
+
+        
+        
+          {% endif %}
+
+
+          {% if cd %}
+
+          
+          {% for obj in cd %}
+          <tr>
+            <th scope="row"> {{ forloop.counter }} </th> 
+            <td>{% if obj.file %}
+              <img src="{{obj.file.url}}" class="rounded border border-dark" alt="..." width="150" height="75" >
+              {% else %}    
+              <img src="{% static 'D:\VoLo\VoLo\media\images\Screenshot_20.png' %}" class="card-img-top" alt="..." height="800" width="1000">
+            {% endif %}
+          </td>
+          <td>
+          Rooms on Sale
+          <br>
+          <i class="bi bi-person"></i>{{obj.username}}
+          <br>
+          <i class="bi bi-geo-alt"></i>{{obj.address}}
+          <br>
+          Sellprice: <i class="bi bi-currency-rupee"></i>{{obj.sellprice}} -/
+          <br>
+          <i class="bi bi-calendar"></i>{{obj.lastdate}}
+          
+          
+          
+          </td>
+          <td>
+            <a class="btn btn-primary" href="/more/{{obj.username}}/{{obj.address}}/{{obj.sellprice}}" >Check</a>
+            
+          </td>
+        </tr>    
+        {% endfor %}
+          
+          {% else %}
+          {% endif %}
+        
+        
+      </tbody>
+    </table>
+     {% if nopage %}
+  
+    <div class="container position-center">
+    
+
+  
+    <div class="container position-center">
+    <section class="page_404">
+	<div class="container">
+		<div class="row">	
+		<div class="col-sm-12 ">
+		<div class="col-sm-10 col-sm-offset-1  text-center">
+		<div class="four_zero_four_bg">
+			<h1 class="text-center ">404</h1>
+		
+		
+		</div>
+		
+		<div class="contant_box_404">
+		<h3 class="h2">
+		No such product!!!
+		</h3>
+		
+		<p>the page you are looking for not avaible!</p>
+		
+		<a href="/" class="link_404">Go to Home</a>
+	</div>
+		</div>
+		</div>
+		</div>
+	</div>
+</section>
+
+<style>
+
+  
+/*======================
+    404 page
+=======================*/
+
+
+.page_404{ padding:40px 0; background:#fff; font-family: 'Arvo', serif;
+}
+
+.page_404  img{ width:100%;}
+
+.four_zero_four_bg{
+ 
+ background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    height: 400px;
+    background-position: center;
+ }
+ 
+ 
+ .four_zero_four_bg h1{
+ font-size:80px;
+ }
+ 
+  .four_zero_four_bg h3{
+			 font-size:80px;
+			 }
+			 
+			 .link_404{			 
+	color: #fff!important;
+    padding: 10px 20px;
+    background: #39ac31;
+    margin: 20px 0;
+    display: inline-block;}
+	.contant_box_404{ margin-top:-50px;}
+</style>
+
+
+
+
+    </div>
+    
+
+
+
+    </div>
+    
+    {% else %}
+    {% endif %} 
+        
+    
+  </body>
+  </html> 

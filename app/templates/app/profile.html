@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
+        <title> Profile </title>
+      </head>
+<body>
+    
+    <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">No.</th> 
+            <th scope="col">Name</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Rent</th>
+            <th scope="col">Address</th>
+            <th scope="col">Mail</th>
+            <th scope="col">Qualification</th>
+            <th scope="col">Accept</th>
+            <th scope="col" type="submit" >Delete</th> 
+          </tr>
+        </thead>
+        <tbody>
+          {% for varr in so %}
+          <tr>
+          <th scope="row">{{forloop.counter}}</th> 
+          <td>{{varr.buyername}}</td>
+          <td>{{varr.gender}}</td>
+          <td>{{varr.rent}}</td>
+          <td>{{varr.address}}</td>
+          <td>{{varr.email}}</td>
+          <td>{{varr.qualification}}</td>
+          <td> <a class="btn btn-success " href="/accept/{{varr.buyername}}/{{varr.address}}/{{varr.rent}}/{{varr.email}}" >Accept</a> </td>
+          <td><button> <a class="bi bi-trash " href="/delete/{{varr.buyername}}/{{varr.address}}/{{varr.rent}}/{{varr.email}}" > </a></button> </td>
+          </tr>
+          {% endfor %}    
+        </tbody>
+      </table>
+
+
+
+</body>
+</html>
